@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Background Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: url('{% static "images/logo.png" %}') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background: url('{% static "images/logo.png" %}') no-repeat center center/cover;
+            }
+
+            .content {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Match 2</h1>
+        <p style="font-size: 24px; font-weight: bold; font-family: 'Pacifico', sans-serif; text-decoration: underline;">First Innings</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Batsman</th>
+                    <th>Team</th>
+                    <th>Score</th>
+                    <th>Bowler</th>
+                    <th>Figure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Team A</td>
+                    <td>50</td>
+                    <td>Mitchel Johnson</td>
+                    <td>5-32</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>Team A</td>
+                    <td>45</td>
+                    <td>Mohammad Shami</td>
+                    <td>4-37</td>
+                </tr>
+                <tr>
+                    <td>Mike Johnson</td>
+                    <td>Team A</td>
+                    <td>60</td>
+                    <td>Dale Steyn</td>
+                    <td>6-22</td>
+                </tr>
+                <tr>
+                    <td>Virat KOhli</td>
+                    <td>Team A</td>
+                    <td>68</td>
+                    <td>Jimmy Anderson</td>
+                    <td>6-28</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 24px; font-weight: bold; font-family: 'Pacifico', sans-serif; text-decoration: underline;">Second Innings</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Batsman</th>
+                    <th>Team</th>
+                    <th>Score</th>
+                    <th>Bowler</th>
+                    <th>Figure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Team A</td>
+                    <td>50</td>
+                    <td>Mitchel Johnson</td>
+                    <td>5-32</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>Team A</td>
+                    <td>45</td>
+                    <td>Mohammad Shami</td>
+                    <td>4-37</td>
+                </tr>
+                <tr>
+                    <td>Mike Johnson</td>
+                    <td>Team A</td>
+                    <td>60</td>
+                    <td>Dale Steyn</td>
+                    <td>6-22</td>
+                </tr>
+                <tr>
+                    <td>Virat KOhli</td>
+                    <td>Team A</td>
+                    <td>68</td>
+                    <td>Jimmy Anderson</td>
+                    <td>6-28</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <a href="/scorecard">To see the full Scorecard</a>
+    </div>
+</body>
+</html>
