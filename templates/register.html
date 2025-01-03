@@ -1,0 +1,132 @@
+{% include "header.html" %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgb(145, 198, 218) 0%, rgb(149, 232, 136) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .registration-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .registration-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .registration-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .registration-form input[type="text"],
+        .registration-form input[type="date"],
+        .registration-form input[type="email"],
+        .registration-form input[type="file"],
+        .registration-form input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .registration-form input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .registration-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .registration-form button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .registration-form {
+                padding: 15px;
+            }
+
+            .registration-form h2 {
+                font-size: 20px;
+            }
+
+            .registration-form button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-form">
+        <h2>Registration Form</h2>
+        <form id="regForm" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmission()">
+            {% csrf_token %}
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="photo">Profile Photo</label>
+            <input type="file" id="photo" name="profile_photo" accept="image/*" required>
+
+            <label for="email">Mail ID</label>
+            <input type="email" id="email" name="email">
+
+            <label>
+                <input type="checkbox" id="confirm" name="confirm" required>
+                I confirm that the details provided are correct
+            </label>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function confirmSubmission() {
+            return confirm("Are you sure you want to submit the details?");
+        }
+    </script>
+</body>
+</html>
+
+{% include "footer.html" %}

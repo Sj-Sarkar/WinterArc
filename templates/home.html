@@ -1,0 +1,25 @@
+{% include "header.html" %}
+{% include "match_selection_home.html" %}
+<div id="homecontents" style="display: none; margin-top: 20px;"></div>
+{% include "footer.html" %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const matchSelection = document.querySelector('#match');
+        const homeContents = document.querySelector('#homecontents');
+
+        matchSelection.addEventListener('change', function() {
+            const selectedMatch = matchSelection.value;
+            if (selectedMatch) {
+                fetch(`/homecontents/?match_number=${selectedMatch}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        homeContents.innerHTML = data;
+                        homeContents.style.display = 'block';
+                    })
+                    .catch(error => console.error('Error fetching match contents:', error));
+            } else {
+                homeContents.style.display = 'none';
+            }
+        });
+    });
+</script>

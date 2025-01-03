@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Background Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: url('{% static "images/logo.png" %}') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid white;
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        @media (max-width: 768px) {
+            body {
+                background: url('{% static "images/logo.png" %}') no-repeat center center/cover;
+            }
+            .content {
+                padding: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    {% if selected_match %}
+    <h1>Match {{ selected_match.match_number }}</h1>
+    <p style="font-size: 24px; font-weight: bold; font-family: 'Pacifico', sans-serif; text-decoration: underline;">First Innings</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Batsman</th>
+            <th>Score</th>
+            <th>Bowler</th>
+            <th>Figure</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for batsman, bowler in innings_list.0 %}
+        <tr>
+            <td>{{ batsman.player.name }}</td>
+            <td>{{ batsman.runs }}</td>
+            <td>{{ bowler.player.name }}</td>
+            <td>{{ bowler.wickets }} - {{ bowler.runs_conceded }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p style="font-size: 24px; font-weight: bold; font-family: 'Pacifico', sans-serif; text-decoration: underline;">Second Innings</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Batsman</th>
+            <th>Score</th>
+            <th>Bowler</th>
+            <th>Figure</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for batsman, bowler in innings_list.1 %}
+        <tr>
+            <td>{{ batsman.player.name }}</td>
+            <td>{{ batsman.runs }}</td>
+            <td>{{ bowler.player.name }}</td>
+            <td>{{ bowler.wickets }} - {{ bowler.runs_conceded }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+</body>
+</html>

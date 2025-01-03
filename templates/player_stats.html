@@ -1,0 +1,142 @@
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            color: white;
+            box-sizing: border-box;
+            margin-top: 80px; /* Added margin to prevent overlap with header */
+        }
+
+        .search-bar {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .player-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .player-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .player-info {
+            flex: 1;
+        }
+
+        .player-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .player-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .player-card img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .player-info h3 {
+                font-size: 16px;
+            }
+
+            .player-info p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Player Stats</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for players...">
+        </div>
+        <div id="playerList">
+            {% for player in players %}
+            <div class="player-card">
+                {% if player.player.profile_photo %}
+                <img src="{{ player.player.profile_photo.url }}" alt="{{ player.player.name }}">
+                {% else %}
+                <img src="path/to/default_image.jpg" alt="Default Image">
+                {% endif %}
+                <div class="player-info">
+                    <h3>{{ player.player.name }}</h3>
+                    {% comment %} <p>Matches Played: {{ player.matches_played }}</p> {% endcomment %}
+                    <p>Runs: {{ player.runs }}</p>
+                    <p>Wickets: {{ player.wickets }}</p>
+                    <p>Average: {{ player.average|floatformat:1 }}</p>
+                    <p>Economy: {{ player.economy|floatformat:1 }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var filter = this.value.toLowerCase();
+            var playerCards = document.getElementsByClassName('player-card');
+            for (var i = 0; i < playerCards.length; i++) {
+                var playerName = playerCards[i].getElementsByClassName('player-info')[0].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                if (playerName.includes(filter)) {
+                    playerCards[i].style.display = '';
+                } else {
+                    playerCards[i].style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+{% include "footer.html" %}

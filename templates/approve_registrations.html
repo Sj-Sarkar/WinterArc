@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Registrations</title>
+</head>
+<body>
+    <h2>Pending Registrations</h2>
+    <form method="post">
+        {% csrf_token %}
+        <ul>
+            {% for registration in registrations %}
+            <li>
+                {{ registration.name }} - {{ registration.email }}
+                <button type="submit" name="approve" value="{{ registration.phone }}">Approve</button>
+                <button type="submit" name="disapprove" value="{{ registration.phone }}">Disapprove</button>
+            </li>
+            {% endfor %}
+        </ul>
+    </form>
+</body>
+</html>

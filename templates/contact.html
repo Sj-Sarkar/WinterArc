@@ -1,0 +1,146 @@
+{% include "header.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg,rgb(145, 198, 218) 0%,rgb(149, 232, 136) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.0); /* Transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+        }
+
+        .slideshow-container {
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .info {
+            position: absolute;
+            width:80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .info h2 {
+            margin-bottom: 10px;
+        }
+
+        .info p {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .slideshow-container {
+                max-width: 100%;
+            }
+
+            .slides {
+                height: 300px;
+            }
+
+            .info h2 {
+                font-size: 20px;
+            }
+
+            .info p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Information</h2>
+    <div class="container">
+        <div class="slideshow-container">
+            <img src="{% static 'images/1.jpg' %}" class="slides active" alt="Slide 1">
+            <img src="{% static 'images/2.jpg' %}" class="slides" alt="Slide 2">
+            <img src="{% static 'images/3.jpg' %}" class="slides" alt="Slide 3">
+            <img src="{% static 'images/4.jpg' %}" class="slides" alt="Slide 4">
+            <img src="{% static 'images/5.jpg' %}" class="slides" alt="Slide 5">
+            <img src="{% static 'images/6.jpg' %}" class="slides" alt="Slide 6">
+            <img src="{% static 'images/7.jpg' %}" class="slides" alt="Slide 7">
+            <div class="info">
+                
+                <p><strong>Board:</strong> Cricket Association of Birpara </p>
+                <p><strong>Venue:</strong> Kalpataru Club Playground</p>
+                <p><strong>Phone:</strong> +91 1234567890</p>
+                <p><strong>Address:</strong> Birpara Forest Road, Alipurduar - 736121</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex - 1].classList.add("active");
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+    </script>
+</body>
+</html>
+
+
+{% include "footer.html" %}
+

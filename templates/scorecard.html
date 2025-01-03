@@ -1,0 +1,157 @@
+
+{% include "header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scorecard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            background-size: cover; /* Ensure the gradient covers the entire page */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .scorecard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            color: white;
+            box-sizing: border-box; /* Ensure padding is included in the width */
+            margin-top: 80px;
+        }
+
+        .scorecard h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .innings {
+            margin-bottom: 40px;
+        }
+
+        .batsman, .bowler, .fall-of-wickets, .total {
+            margin-bottom: 20px;
+        }
+
+        .batsman div, .bowler div, .fall-of-wickets div, .total div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .batsman div:last-child, .bowler div:last-child, .fall-of-wickets div:last-child, .total div:last-child {
+            border-bottom: none;
+        }
+
+        .batsman div span, .bowler div span, .fall-of-wickets div span, .total div span {
+            flex: 1;
+            text-align: center;
+        }
+
+        .batsman div span:first-child, .bowler div span:first-child, .fall-of-wickets div span:first-child, .total div span:first-child {
+            text-align: left;
+        }
+
+        .batsman div span:last-child, .bowler div span:last-child, .fall-of-wickets div span:last-child, .total div span:last-child {
+            text-align: right;
+        }
+
+        .player-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .player-image img {
+            width: 40px; /* Decrease image size */
+            height: 40px; /* Decrease image size */
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .batsman div span, .bowler div span, .fall-of-wickets div span, .total div span {
+                padding: 5px;
+            }
+
+            .player-image img {
+                width: 30px; /* Further decrease image size for mobile view */
+                height: 30px; /* Further decrease image size for mobile view */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scorecard">
+        <h2>Cricket Scorecard</h2>
+        {% if selected_match %}
+        <h3>Match {{ selected_match.match_number }}</h3>
+        {% for innings_data in innings_list %}
+        <div class="innings">
+            <h3>{{ innings_data.innings }} Innings</h3>
+            <div class="batsman">
+                <h4>Batsmen</h4>
+                <div><span>Batsman</span><span>Runs</span><span>Balls</span><span>Strike Rate</span><span>How Out</span></div>
+                {% for score in innings_data.batsmen %}
+                <div>
+                    <span>
+                        <div class="player-image">
+                            <img src="{{ score.player.profile_photo.url }}" alt="{{ score.player.name }}">
+                            <span>{{ score.player.name }}</span>
+                        </div>
+                    </span>
+                    <span>{{ score.runs|default:"-" }}</span>
+                    <span>{{ score.balls|default:"-" }}</span>
+                    <span>{{ score.strike_rate|floatformat:1|default:"-" }}</span>
+                    <span>{{ score.how_out|default:"-" }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="total">
+                <div><span>Total Runs</span><span>{{ innings_data.total_runs }}</span></div>
+            </div>
+            <div class="bowler">
+                <h4>Bowlers</h4>
+                <div><span>Bowler</span><span>Overs</span><span>Wickets</span><span>Economy</span><span>Runs Conceded</span></div>
+                {% for score in innings_data.bowlers %}
+                <div>
+                    <span>
+                        <div class="player-image">
+                            <img src="{{ score.player.profile_photo.url }}" alt="{{ score.player.name }}">
+                            <span>{{ score.player.name }}</span>
+                        </div>
+                    </span>
+                    <span>{{ score.overs|default:"-" }}</span>
+                    <span>{{ score.wickets|default:"-" }}</span>
+                    <span>{{ score.economy|floatformat:1|default:"-" }}</span>
+                    <span>{{ score.runs_conceded|default:"-" }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
